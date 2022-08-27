@@ -8,7 +8,6 @@ import android.widget.Button
 class MainActivity : AppCompatActivity() {
 
     private var list = arrayListOf<String>()
-    private var list2 = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -16,9 +16,10 @@ class MultipleChoiceDialogFragment : DialogFragment() {
     private var result: MutableList<String> = mutableListOf()
         get() = requireArguments().getStringArrayList(ARG) as MutableList<String>
 
-    private val listEmployee = arrayOf<String>("Первый клиент", "Второй", "Третий")
+    private val listEmployee = arrayOf<String>("Первый клиент", "Второй", "Третий", "sadfa", "Второй")
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         val dialogItem = listEmployee
 
         val checkBox = listEmployee
@@ -38,8 +39,13 @@ class MultipleChoiceDialogFragment : DialogFragment() {
     }
 
     private fun checked(value: Boolean, position: Int) {
-        if (value && listEmployee[position] !in result) result.add(listEmployee[position])
+        if (value && listEmployee[position] !in result) {
+            result.add(listEmployee[position])
+        } else {
+            result.remove(listEmployee[position])
+        }
     }
+
 
     companion object {
         @JvmStatic
@@ -60,10 +66,17 @@ class MultipleChoiceDialogFragment : DialogFragment() {
             dialogFragment.show(manager, TAG)
         }
 
-        fun setupListener (manager: FragmentManager, lifecycleOwner: LifecycleOwner, listener: (ArrayList<String>) -> Unit) {
-            manager.setFragmentResultListener(REQUEST_KEY, lifecycleOwner, FragmentResultListener { _, result ->
-                result.getStringArrayList(KET_RESPONSE)?.let { listener.invoke(it) }
-            })
+        fun setupListener(
+            manager: FragmentManager,
+            lifecycleOwner: LifecycleOwner,
+            listener: (ArrayList<String>) -> Unit
+        ) {
+            manager.setFragmentResultListener(
+                REQUEST_KEY,
+                lifecycleOwner,
+                FragmentResultListener { _, result ->
+                    result.getStringArrayList(KET_RESPONSE)?.let { listener.invoke(it) }
+                })
         }
     }
 }
